@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+xmlns:tns="http://www.example.org/IntelecomRequestAdd" 
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+name="IntelecomRequestAdd" 
+targetNamespace="http://www.example.org/IntelecomRequestAdd">
+  <wsdl:types>
+     <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://www.example.org/IntelecomRequestAdd" 
+            schemaLocation="../XSD/IntelecomRequestAdd.xsd"/>
+     </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="RequestAddRequest">
+    <wsdl:part element="tns:RequestAdd" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="RequestAddResponse">
+    <wsdl:part element="tns:RequestAddResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="IntelecomRequestAdd">
+    <wsdl:operation name="RequestAdd">
+      <wsdl:input message="tns:RequestAddRequest"/>
+      <wsdl:output message="tns:RequestAddResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IntelecomRequestAddSOAP" type="tns:IntelecomRequestAdd">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="RequestAdd">
+      <soap:operation soapAction="http://www.example.org/IntelecomRequestAdd/NewOperation"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IntelecomRequestAdd">
+    <wsdl:port binding="tns:IntelecomRequestAddSOAP" name="IntelecomRequestAddSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

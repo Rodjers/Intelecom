@@ -1,3 +1,7 @@
+configurations {
+    jaxb
+}
+
 buildscript {
     ext {
         springBootVersion = '1.2.3.RELEASE'
@@ -28,11 +32,53 @@ repositories {
     mavenCentral()
 }
 
+task genJaxb {
+    ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
+    ext.classesDir = "${buildDir}/classes/jaxb"
+    ext.schemadir = "${projectDir}/src/main/resources/WSDL"
+    ext.bindings = "${projectDir}/src/main/resources/jaxb-bindings.xml"
+
+    outputs.dir classesDir
+
+    doLast() {
+        project.ant {
+            taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
+                    classpath: configurations.jaxb.asPath
+            mkdir(dir: sourcesDir)
+            mkdir(dir: classesDir)
+
+            xjc(destdir: sourcesDir, package: "no.lyse.ikt.ms.intelecom.schemas",
+                binding: bindings) {
+                schema(dir: schemadir) {include(name: "*.wsdl")}
+                arg(value: "-wsdl")
+                arg(value: "-extension")
+                produces(dir: sourcesDir, includes: "**/*.java")
+            }
+
+            javac(destdir: classesDir, source: 1.8, target: 1.8, debug: true,
+                    debugLevel: "lines,vars,source",
+                    classpath: configurations.jaxb.asPath) {
+                src(path: sourcesDir)
+                include(name: "**/*.java")
+                include(name: "*.java")
+            }
+
+            copy(todir: classesDir) {
+                fileset(dir: sourcesDir, erroronmissingdir: false) {
+                    exclude(name: "**/*.java")
+                }
+            }
+        }
+    }
+}
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-integration")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-ws")
+    compile(files(genJaxb.classesDir).builtBy(genJaxb))
+
+    jaxb("com.sun.xml.bind:jaxb-xjc:2.1.7")
     testCompile("org.springframework.boot:spring-boot-starter-test") 
 }
 

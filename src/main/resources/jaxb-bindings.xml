@@ -1,0 +1,58 @@
+<jxb:bindings version="2.1"
+              xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+              xmlns:xs="http://www.w3.org/2001/XMLSchema"
+              xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc">
+    <jxb:globalBindings>
+        <xjc:simple/>
+    </jxb:globalBindings>
+    <jxb:bindings schemaLocation="WSDL/Agent.wsdl">
+        <jxb:bindings node="//xs:element[@name='ServiceListResponse'][not(@nillable)]">
+            <jxb:class name="ServiceListResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='MissedCallListResponse'][not(@nillable)]">
+            <jxb:class name="MissedCallListResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='ServiceQualityListResponse'][not(@nillable)]">
+            <jxb:class name="ServiceQualityListResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='AgentStateAndTickerListResponse'][not(@nillable)]">
+            <jxb:class name="AgentStateAndTickerListResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='CatalogAppointmentListResponse'][not(@nillable)]">
+            <jxb:class name="CatalogAppointmentListResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='RequestConnectedListResponse'][not(@nillable)]">
+            <jxb:class name="RequestConnectedListResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='PropertyListResponse'][not(@nillable)]">
+            <jxb:class name="PropertyListResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='VisualQueueStateAndTickerListResponse'][not(@nillable)]">
+            <jxb:class name="VisualQueueStateAndTickerListResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='VisualQueueListResponse'][not(@nillable)]">
+            <jxb:class name="VisualQueueListResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:complexType[@name='AgentTickerGetResponse']">
+            <jxb:class name="AgentTickerGetResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:complexType[@name='AgentStateGetResponse']">
+            <jxb:class name="AgentStateGetResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='ServiceLabelListResponse'][not(@nillable)]">
+            <jxb:class name="ServiceLabelListResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='UserListResponse'][not(@nillable)]">
+            <jxb:class name="UserListResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:element[@name='AccessPointTickerListResponse'][not(@nillable)]">
+            <jxb:class name="AccessPointTickerListResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:complexType[@name='IQSessionStateInformationGetResponse']">
+            <jxb:class name="IQSessionStateInformationGetResponseType" />
+        </jxb:bindings>
+        <jxb:bindings node="//xs:complexType[@name='UserGetResponse']">
+            <jxb:class name="UserGetResponseType" />
+        </jxb:bindings>
+    </jxb:bindings>
+</jxb:bindings>

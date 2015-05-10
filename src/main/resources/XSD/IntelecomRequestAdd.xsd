@@ -23,7 +23,7 @@
             <xsd:element minOccurs="0" maxOccurs="1" name="Result" type="xsd:int"/>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:element name="RequestAdd">
+    <xsd:element name="RequestAddRequest">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element minOccurs="1" maxOccurs="1" name="CustomerKey" type="xsd:string"/>

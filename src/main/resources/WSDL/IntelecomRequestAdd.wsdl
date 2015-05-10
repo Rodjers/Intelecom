@@ -12,7 +12,7 @@ targetNamespace="http://www.example.org/IntelecomRequestAdd">
      </xsd:schema>
   </wsdl:types>
   <wsdl:message name="RequestAddRequest">
-    <wsdl:part element="tns:RequestAdd" name="parameters"/>
+    <wsdl:part element="tns:RequestAddRequest" name="parameters"/>
   </wsdl:message>
   <wsdl:message name="RequestAddResponse">
     <wsdl:part element="tns:RequestAddResponse" name="parameters"/>

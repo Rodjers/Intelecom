@@ -8,10 +8,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.support.MessageBuilder;
 import org.springframework.integration.transformer.GenericTransformer;
 import org.springframework.integration.ws.MarshallingWebServiceInboundGateway;
 import org.springframework.integration.ws.MarshallingWebServiceOutboundGateway;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.MessageHeaders;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ws.config.annotation.EnableWs;
 
@@ -39,18 +42,21 @@ public class Infrastructure {
     }
 
     @Bean
-    GenericTransformer<InboundRequestAddRequest, Authenticate> authenticateTransformer() {
-        return new GenericTransformer<InboundRequestAddRequest, Authenticate>() {
+    GenericTransformer<Message<InboundRequestAddRequest>, Message<Authenticate>> authenticateTransformer() {
+        return new GenericTransformer<Message<InboundRequestAddRequest>, Message<Authenticate>>() {
             @Override
-            public Authenticate transform(InboundRequestAddRequest source) {
+            public Message<Authenticate> transform(Message<InboundRequestAddRequest> source) {
                 ObjectFactory factory = new ObjectFactory();
                 Authenticate authenticate = factory.createAuthenticate();
 
-                authenticate.setCustomerKey(factory.createAuthenticateCustomerKey(source.getCustomerKey()));
-                authenticate.setPassword(factory.createAuthenticatePassword(source.getPassword()));
-                authenticate.setUserName(factory.createAuthenticateUserName(source.getUserName()));
+                authenticate.setCustomerKey(factory.createAuthenticateCustomerKey(source.getPayload().getCustomerKey()));
+                authenticate.setPassword(factory.createAuthenticatePassword(source.getPayload().getPassword()));
+                authenticate.setUserName(factory.createAuthenticateUserName(source.getPayload().getUserName()));
 
-                return authenticate;
+                MessageBuilder<Authenticate> mb = MessageBuilder.withPayload(authenticate);
+                mb.setHeader("ws_soapAction", "ContactCentreWebServices/IAgent/Authenticate");
+
+                return mb.copyHeadersIfAbsent(source.getHeaders()).build();
             }
         };
     }
@@ -67,5 +73,15 @@ public class Infrastructure {
         );
 
         return authenticateGateway;
+    }
+
+    @Bean
+    GenericTransformer<Object, Object> requestAddTransformer() {
+        return new GenericTransformer<Object, Object>() {
+            @Override
+            public Object transform(Object source) {
+                return null;
+            }
+        };
     }
 }

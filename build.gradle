@@ -85,6 +85,10 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test") 
 }
 
+jar {
+    from genJaxb.classesDir
+}
+
 
 eclipse {
     classpath {

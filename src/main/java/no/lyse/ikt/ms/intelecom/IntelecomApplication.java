@@ -1,8 +1,6 @@
 package no.lyse.ikt.ms.intelecom;
 
-import no.lyse.ikt.ms.intelecom.schemas.Authenticate;
-import no.lyse.ikt.ms.intelecom.schemas.AuthenticateResponse;
-import no.lyse.ikt.ms.intelecom.schemas.RequestAdd;
+import no.lyse.ikt.ms.intelecom.schemas.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,7 +26,10 @@ public class IntelecomApplication {
     MarshallingWebServiceInboundGateway entryPoint;
 
     @Autowired
-    GenericTransformer<Map<String,String>,Message<RequestAdd>> requestAddTransformer;
+    GenericTransformer<Message<Map<String,String>>,Message<RequestAdd>> requestAddTransformer;
+
+    @Autowired
+    GenericTransformer<Message<RequestAddResponse>,Message<InboundRequestAddResponse>> requestAddReplyTransformer;
 
     @Bean
     IntegrationFlow flow() {
@@ -37,6 +38,8 @@ public class IntelecomApplication {
                 .enrich(e -> e.requestChannel("authenticateChannel")
                                 .propertyExpression("accesstoken", "payload.authenticateResult"))
                 .transform(requestAddTransformer)
+                .handle(requestAddGateway)
+                .transform(requestAddReplyTransformer)
                 .get();
     }
 
@@ -45,6 +48,9 @@ public class IntelecomApplication {
 
     @Autowired
     MarshallingWebServiceOutboundGateway authenticateGateway;
+
+    @Autowired
+    MarshallingWebServiceOutboundGateway requestAddGateway;
 
     @Autowired
     GenericTransformer<AuthenticateResponse, Map<String,String>> authenticateReplyTransformer;

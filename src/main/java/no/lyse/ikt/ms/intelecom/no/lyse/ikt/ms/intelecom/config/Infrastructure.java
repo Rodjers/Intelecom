@@ -83,11 +83,11 @@ public class Infrastructure {
 
     @Bean
     MarshallingWebServiceOutboundGateway requestAddGateway() {
-        MarshallingWebServiceOutboundGateway authenticateGateway = new MarshallingWebServiceOutboundGateway(
+        MarshallingWebServiceOutboundGateway requestAddGateway = new MarshallingWebServiceOutboundGateway(
                 "https://api.intele.com/Connect/ContactCentre/Agent.svc", jaxb2Marshaller(), jaxb2Marshaller()
         );
 
-        return authenticateGateway;
+        return requestAddGateway;
     }
 
     @Bean
@@ -118,13 +118,13 @@ public class Infrastructure {
 
                 StringBuilder sb = new StringBuilder();
 
-                sb.append("&lt;info>");
-                sb.append("&lt;from>" + source.get("from") + sb.append("</from>"));
-                sb.append("&lt;to>" + source.get("to") + sb.append("</to>"));
-                sb.append("&lt;sentTime>" + source.get("sentTime") + sb.append("</sentTime>"));
-                sb.append("&lt;receivedTime>" + source.get("receivedTime") + sb.append("</receivedTime>"));
-                sb.append("&lt;subject>" + source.get("subject") + sb.append("</subject>"));
-                sb.append("&lt;uri>" + source.get("uri") + sb.append("</uri>"));
+                sb.append("<info>");
+                sb.append("<from>" + source.get("from") + "</from>");
+                sb.append("<to>" + source.get("to") + "</to>");
+                sb.append("<sentTime>" + source.get("sentTime") + "</sentTime>");
+                sb.append("<receivedTime>" + source.get("receivedTime") + "</receivedTime>");
+                sb.append("<subject>" + source.get("subject") + "</subject>");
+                sb.append("<uri>" + source.get("uri") + "</uri>");
                 sb.append("</info>");
 
                 requestAdd.setInfoXml(factory.createRequestAddInfoXml(sb.toString()));
@@ -175,8 +175,11 @@ public class Infrastructure {
                 InboundRequestAddResponse inboundRequestAddResponse = factory.createInboundRequestAddResponse();
 
                 ResponseType responseType = factory.createResponseType();
-                responseType.setCode(source.getPayload().getRequestAddResult().getValue().getResult());
+                responseType.setCode(source.getPayload().getRequestAddResult().getValue().getCode());
+                responseType.setResult(source.getPayload().getRequestAddResult().getValue().getResult());
+                responseType.setMessage(source.getPayload().getRequestAddResult().getValue().getMessage().getValue());
                 responseType.setRequestId((String) source.getHeaders().get("RequestId"));
+                responseType.setId(source.getPayload().getRequestAddResult().getValue().getId().getValue());
 
                 QName responsTypeQName = new QName("http://www.example.org/IntelecomRequestAdd", "ResponseType");
                 JAXBElement<ResponseType> responseTypeJAXBElement = new JAXBElement<ResponseType>(responsTypeQName, ResponseType.class, responseType);

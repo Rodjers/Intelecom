@@ -6,7 +6,7 @@ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 name="IntelecomRequestAdd" 
 targetNamespace="http://www.example.org/IntelecomRequestAdd">
   <wsdl:types>
-     <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/IntelecomRequestAdd">
+     <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.example.org/IntelecomRequestAdd">
        <xsd:complexType name="InfoType">
          <xsd:sequence maxOccurs="1">
            <xsd:element minOccurs="1" maxOccurs="1" name="From" type="xsd:string"/>

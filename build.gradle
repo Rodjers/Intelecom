@@ -23,7 +23,7 @@ apply plugin: 'io.spring.dependency-management'
 
 jar {
     baseName = 'intelecom'
-    version = '0.0.1-SNAPSHOT'
+    version = '1.0.0-RELEASE'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

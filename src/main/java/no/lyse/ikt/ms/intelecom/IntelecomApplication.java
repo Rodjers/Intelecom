@@ -2,7 +2,6 @@ package no.lyse.ikt.ms.intelecom;
 
 import no.lyse.ikt.ms.intelecom.schemas.Authenticate;
 import no.lyse.ikt.ms.intelecom.schemas.AuthenticateResponse;
-import no.lyse.ikt.ms.intelecom.schemas.InboundRequestAddRequest;
 import no.lyse.ikt.ms.intelecom.schemas.RequestAdd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

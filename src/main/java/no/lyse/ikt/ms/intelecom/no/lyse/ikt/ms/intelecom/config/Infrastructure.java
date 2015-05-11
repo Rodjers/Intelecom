@@ -7,13 +7,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.support.MessageBuilder;
-import org.springframework.integration.transformer.ContentEnricher;
 import org.springframework.integration.transformer.GenericTransformer;
 import org.springframework.integration.ws.MarshallingWebServiceInboundGateway;
 import org.springframework.integration.ws.MarshallingWebServiceOutboundGateway;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.handler.annotation.Headers;
+import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ws.config.annotation.EnableWs;
 
@@ -109,7 +108,6 @@ public class Infrastructure {
                 infoXml.setSubject(source.get("subject"));
                 infoXml.setTo(source.get("to"));
                 infoXml.setUri("uri");
-
 
 
                 return null;

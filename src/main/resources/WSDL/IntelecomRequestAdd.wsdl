@@ -6,13 +6,54 @@ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 name="IntelecomRequestAdd" 
 targetNamespace="http://www.example.org/IntelecomRequestAdd">
   <wsdl:types>
-     <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-            <xsd:import namespace="http://www.example.org/IntelecomRequestAdd" 
-            schemaLocation="../XSD/IntelecomRequestAdd.xsd"/>
+     <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/IntelecomRequestAdd">
+       <xsd:complexType name="InfoType">
+         <xsd:sequence maxOccurs="1">
+           <xsd:element minOccurs="1" maxOccurs="1" name="From" type="xsd:string"/>
+           <xsd:element minOccurs="1" maxOccurs="1" name="To" type="xsd:string"/>
+           <xsd:element minOccurs="0" maxOccurs="1" name="SentTime" type="xsd:string"/>
+           <xsd:element minOccurs="0" maxOccurs="1" name="ReceivedTime" type="xsd:string"/>
+           <xsd:element minOccurs="0" maxOccurs="1" name="Subject" type="xsd:string"/>
+           <xsd:element minOccurs="0" maxOccurs="1" name="Uri" type="xsd:string"/>
+         </xsd:sequence>
+       </xsd:complexType>
+       <xsd:complexType name="ResponseType">
+         <xsd:sequence maxOccurs="1">
+           <xsd:element minOccurs="1" maxOccurs="1" name="Code" type="xsd:int"/>
+           <xsd:element minOccurs="0" maxOccurs="1" name="Id" type="xsd:string"/>
+           <xsd:element minOccurs="0" maxOccurs="1" name="RequestId" type="xsd:string"/>
+           <xsd:element minOccurs="0" maxOccurs="1" name="Message" type="xsd:string"/>
+           <xsd:element minOccurs="0" maxOccurs="1" name="Result" type="xsd:int"/>
+         </xsd:sequence>
+       </xsd:complexType>
+       <xsd:element name="RequestAdd">
+         <xsd:complexType>
+           <xsd:sequence>
+             <xsd:element minOccurs="1" maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+             <xsd:element minOccurs="1" maxOccurs="1" name="UserName" type="xsd:string"/>
+             <xsd:element minOccurs="1" maxOccurs="1" name="Password" type="xsd:string"/>
+             <xsd:element minOccurs="1" maxOccurs="1" name="From" type="xsd:string"/>
+             <xsd:element minOccurs="1" maxOccurs="1" name="To" type="xsd:string"/>
+             <xsd:element minOccurs="0" maxOccurs="1" name="SentTime" type="xsd:string"/>
+             <xsd:element minOccurs="0" maxOccurs="1" name="ReceivedTime" type="xsd:string"/>
+             <xsd:element minOccurs="0" maxOccurs="1" name="Subject" type="xsd:string"/>
+             <xsd:element minOccurs="0" maxOccurs="1" name="Uri" type="xsd:string"/>
+             <xsd:element minOccurs="1" maxOccurs="1" name="RequestId" type="xsd:string"/>
+
+           </xsd:sequence>
+         </xsd:complexType>
+       </xsd:element>
+       <xsd:element name="RequestAddResponse">
+         <xsd:complexType>
+           <xsd:sequence>
+             <xsd:element minOccurs="0" name="RequestAddResult" nillable="true" type="tns:ResponseType"/>
+           </xsd:sequence>
+         </xsd:complexType>
+       </xsd:element>
      </xsd:schema>
   </wsdl:types>
   <wsdl:message name="RequestAddRequest">
-    <wsdl:part element="tns:RequestAddRequest" name="parameters"/>
+    <wsdl:part element="tns:RequestAdd" name="parameters"/>
   </wsdl:message>
   <wsdl:message name="RequestAddResponse">
     <wsdl:part element="tns:RequestAddResponse" name="parameters"/>

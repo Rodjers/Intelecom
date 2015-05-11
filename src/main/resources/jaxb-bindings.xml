@@ -124,9 +124,8 @@
             <jxb:class name="GroupNameType"/>
         </jxb:bindings>
     </jxb:bindings>
-    <jxb:bindings schemaLocation="XSD/IntelecomRequestAdd.xsd" node="//xs:schema">
+    <jxb:bindings schemaLocation="WSDL/IntelecomRequestAdd.wsdl" node="//xs:schema">
         <jxb:schemaBindings>
-            <jxb:package name="intelecomrequestadd"/>
             <jxb:nameXmlTransform>
                 <jxb:elementName prefix="Inbound"/>
             </jxb:nameXmlTransform>

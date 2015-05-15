@@ -78,7 +78,7 @@ targetNamespace="http://www.example.org/IntelecomRequestAdd">
   </wsdl:binding>
   <wsdl:service name="IntelecomRequestAdd">
     <wsdl:port binding="tns:IntelecomRequestAddSOAP" name="IntelecomRequestAddSOAP">
-      <soap:address location="http://www.example.org/"/>
+      <soap:address location="http://www.example.org/intelecom/intelecomrequestadd"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

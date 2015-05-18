@@ -139,32 +139,6 @@ public class Infrastructure {
     }
 
     @Bean
-    GenericTransformer<Object, Object> debugTransformer() {
-        return new GenericTransformer<Object, Object>() {
-            @Override
-            public Object transform(Object source) {
-
-                ObjectFactory factory = new ObjectFactory();
-
-                InboundRequestAddResponse inboundRequestAddResponse = factory.createInboundRequestAddResponse();
-                JAXBElement<ResponseType> jaxbResponseType = inboundRequestAddResponse.getRequestAddResult();
-
-                ResponseType responseType = jaxbResponseType.getValue();
-
-        //        responseType.setCode(source.getPayload().getRequestAddResult().getValue().getResult());
-     //           responseType.setRequestId((String) source.getHeaders().get("RequestId"));
-
-                jaxbResponseType.setValue(responseType);
-                inboundRequestAddResponse.setRequestAddResult(jaxbResponseType);
-
-                MessageBuilder<InboundRequestAddResponse> mb = MessageBuilder.withPayload(inboundRequestAddResponse);
-
-                return mb.build();
-            }
-        };
-    }
-
-    @Bean
     GenericTransformer<Message<RequestAddResponse>,Message<InboundRequestAddResponse>> requestAddReplyTransformer() {
         return new GenericTransformer<Message<RequestAddResponse>, Message<InboundRequestAddResponse>>() {
             @Override
@@ -176,12 +150,11 @@ public class Infrastructure {
 
                 ResponseType responseType = factory.createResponseType();
                 responseType.setCode(source.getPayload().getRequestAddResult().getValue().getCode());
-                responseType.setResult(source.getPayload().getRequestAddResult().getValue().getResult());
                 responseType.setMessage(source.getPayload().getRequestAddResult().getValue().getMessage().getValue());
                 responseType.setRequestId((String) source.getHeaders().get("RequestId"));
                 responseType.setId(source.getPayload().getRequestAddResult().getValue().getId().getValue());
 
-                QName responsTypeQName = new QName("http://www.example.org/IntelecomRequestAdd", "ResponseType");
+                QName responsTypeQName = new QName("http://www.example.org/IntelecomRequestAdd", "RequestAddResult");
                 JAXBElement<ResponseType> responseTypeJAXBElement = new JAXBElement<ResponseType>(responsTypeQName, ResponseType.class, responseType);
 
                 inboundRequestAddResponse.setRequestAddResult(responseTypeJAXBElement);
